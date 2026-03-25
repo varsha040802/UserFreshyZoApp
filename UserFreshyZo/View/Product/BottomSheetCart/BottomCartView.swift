@@ -6,16 +6,15 @@
 //
 
 import SwiftUI
-
 struct BottomCartView: View {
 
     @EnvironmentObject var cartVM: CartViewModel
-    @State private var showCart = false
+    @Binding var selectedTab: Int   // ✅ ADD THIS
 
     var body: some View {
         HStack {
 
-            VStack(alignment: .leading, spacing: 4) {   // reduced spacing
+            VStack(alignment: .leading, spacing: 4) {
                 Text("\(cartVM.totalItems) items")
                     .font(.caption)
                     .foregroundColor(.white)
@@ -27,8 +26,13 @@ struct BottomCartView: View {
 
             Spacer()
 
-            Button("View Cart") {
-                showCart = true
+            Button {
+                selectedTab = 4   // ✅ SWITCH TO CART TAB
+            } label: {
+                HStack {
+                    Text("View Cart")
+                    Image(systemName: "chevron.right")
+                }
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 8)
@@ -39,12 +43,8 @@ struct BottomCartView: View {
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 16)
-                  .fill(Color("AppGreenColor"))
-                  .shadow(radius: 8)
+                .fill(Color("AppGreenColor"))
+                .shadow(radius: 6)
         )
-        .sheet(isPresented: $showCart) {
-            CartView()
-                .environmentObject(cartVM)
-        }
     }
 }
