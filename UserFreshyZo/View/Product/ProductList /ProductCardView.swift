@@ -24,12 +24,12 @@ struct ProductCardView: View {
                 image in image
                     .resizable()
                     .scaledToFill()
-                }placeholder: {
-                    ProgressView()
-                }
-                .frame(width: isPad ? 130 : 95,
-                       height: isPad ? 130 : 95)
-                .clipShape(RoundedRectangle(cornerRadius: 14))
+            }placeholder: {
+                ProgressView()
+            }
+            .frame(width: isPad ? 130 : 95,
+                   height: isPad ? 130 : 95)
+            .clipShape(RoundedRectangle(cornerRadius: 14))
             
             VStack(alignment: .leading, spacing: 6) {
                 
@@ -54,7 +54,7 @@ struct ProductCardView: View {
                         .foregroundColor(Color("AppGreenColor"))
                         .cornerRadius(6)
                 }
-
+                
                 
                 HStack(spacing: 6) {
                     
@@ -67,98 +67,34 @@ struct ProductCardView: View {
                         .strikethrough()
                     
                     if let price = Double(product.price),
-                       let mrp = Double(product.mrp){
+                       let mrp = Double(product.mrp),
+                       mrp > 0 {
                         
-                        let discount = Int(((mrp-price) / mrp) * 100)
-                        Text("\(discount)% OFF")
-                            .font(.system(size: isPad ? 15 : 10))
-                            .lineLimit(1)
-                            .fixedSize()
-                            .padding(.horizontal, 6)
-                            .padding(.vertical, 3)
-                            .background(Color.orange.opacity(0.2))
-                            .cornerRadius(6)
+                        let raw = ((mrp - price) / mrp) * 100
+                        
+                        if raw.isFinite {
+                            let discount = Int(max(0, raw))
+                            
+                            Text("\(discount)% OFF")
+                                .font(.system(size: isPad ? 15 : 10))
+                                .lineLimit(1)
+                                .fixedSize()
+                                .padding(.horizontal, 6)
+                                .padding(.vertical, 3)
+                                .background(Color.orange.opacity(0.2))
+                                .cornerRadius(6)
+                        }
                     }
                 }
                 
-                HStack( spacing: 8) {
+                HStack(spacing: 10){
+                    ProductStepperView(
+                        product: product,
+                        quantity: quantity,
+                        isPad: isPad
+                    )
+                    .environmentObject(cartVM)
                     
-//                    Button("Buy Once") {}
-//                        .font(.system(size: isPad ? 16 : 12))
-//                        .frame(maxWidth: .infinity)
-//                        .foregroundColor(Color("AppGreenColor"))
-//                        .frame(height: isPad ? 40 : 30)
-//                        .overlay(
-//                            RoundedRectangle(cornerRadius: 10)
-//                                .stroke(Color("AppGreenColor"))
-//                        )
-                    
-                    if quantity == 0 {
-
-                        Button("Buy Once") {
-                            cartVM.addItem(
-                                id: product.id,
-                                name: product.cleanName,
-                                price: Int(product.price) ?? 0
-                            )
-                        }
-                        .font(.system(size: isPad ? 16 : 12))
-                        .frame(maxWidth: .infinity)
-                        .foregroundColor(Color("AppGreenColor"))
-                        .frame(height: isPad ? 40 : 30)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color("AppGreenColor"))
-                        )
-
-                    } else {
-
-                        HStack {
-
-                                Spacer()
-
-                                Button {
-                                    cartVM.removeItem(id: product.id)
-                                } label: {
-                                    Text("-")
-                                        .font(.system(size: isPad ? 18 : 14, weight: .bold))
-                                        .foregroundColor(Color("AppGreenColor"))
-                                }
-
-                                Spacer()
-
-                                Text("\(quantity)")
-                                .font(.system(size: isPad ? 16 : 12, weight: .regular))
-                                .foregroundColor(.black)
-
-                                Spacer()
-
-                                Button {
-                                    cartVM.addItem(
-                                        id: product.id,
-                                        name: product.cleanName,
-                                        price: Int(product.price) ?? 0
-                                    )
-                                } label: {
-                                    Text("+")
-                                        .font(.system(size: isPad ? 18 : 14, weight: .bold))
-                                        .foregroundColor(Color("AppGreenColor"))
-                                }
-
-                                Spacer()
-                        }
-//                        .font(.system(size: isPad ? 16 : 12))
-                        .frame(maxWidth: .infinity)
-                        .frame(height: isPad ? 40 : 30)
-                        .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color("AppGreenColor").opacity(0.1))
-                            )
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color("AppGreenColor") , lineWidth: 2)
-                        )
-                    }
                     
                     Button("Subscribe") {}
                         .font(.system(size: isPad ? 16 : 12))
@@ -168,19 +104,23 @@ struct ProductCardView: View {
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
-
+                .padding(.top, 6)
+                
             }
+            
         }
+        
         .padding(14)
         .background(
             RoundedRectangle(cornerRadius: 18)
                 .fill(Color.white)
         )
-//        .frame(maxWidth: isPad ? 800 : .infinity)
+        //        .frame(maxWidth: isPad ? 800 : .infinity)
         .frame(maxWidth: .infinity, alignment: .leading)
-
+        
         .shadow(color: .black.opacity(0.06), radius: 6, y: 3)
     }
 }
-
+    
+    
 

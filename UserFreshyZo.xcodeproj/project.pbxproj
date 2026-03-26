@@ -8,15 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		28C23C722F601E9A0061DCD4 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 28C23C712F601E9A0061DCD4 /* Lottie */; };
+		28E6DE072F72A84E00D91BC5 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 28E6DE062F72A84E00D91BC5 /* SDWebImageSwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		28467FAD2F497F8100B5E974 /* UserFreshyZo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UserFreshyZo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		28A555C52F741442006BD5FE /* UserFreshyZo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UserFreshyZo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		28467FAF2F497F8100B5E974 /* UserFreshyZo */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
 			path = UserFreshyZo;
 			sourceTree = "<group>";
 		};
@@ -27,6 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28E6DE072F72A84E00D91BC5 /* SDWebImageSwiftUI in Frameworks */,
 				28C23C722F601E9A0061DCD4 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,16 +42,8 @@
 			isa = PBXGroup;
 			children = (
 				28467FAF2F497F8100B5E974 /* UserFreshyZo */,
-				28467FAE2F497F8100B5E974 /* Products */,
+				28A555C52F741442006BD5FE /* UserFreshyZo.app */,
 			);
-			sourceTree = "<group>";
-		};
-		28467FAE2F497F8100B5E974 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				28467FAD2F497F8100B5E974 /* UserFreshyZo.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +67,10 @@
 			name = UserFreshyZo;
 			packageProductDependencies = (
 				28C23C712F601E9A0061DCD4 /* Lottie */,
+				28E6DE062F72A84E00D91BC5 /* SDWebImageSwiftUI */,
 			);
 			productName = UserFreshyZo;
-			productReference = 28467FAD2F497F8100B5E974 /* UserFreshyZo.app */;
+			productReference = 28A555C52F741442006BD5FE /* UserFreshyZo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -102,9 +99,10 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				28C23C702F601E9A0061DCD4 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				28E6DE052F72A84E00D91BC5 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 28467FAE2F497F8100B5E974 /* Products */;
+			productRefGroup = 28467FA42F497F8100B5E974;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -195,7 +193,9 @@
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 			};
 			name = Debug;
 		};
@@ -253,6 +253,8 @@
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -353,6 +355,14 @@
 				minimumVersion = 4.6.0;
 			};
 		};
+		28E6DE052F72A84E00D91BC5 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -360,6 +370,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 28C23C702F601E9A0061DCD4 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		28E6DE062F72A84E00D91BC5 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 28E6DE052F72A84E00D91BC5 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

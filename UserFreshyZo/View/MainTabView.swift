@@ -9,12 +9,15 @@ import SwiftUI
 
 struct MainTabView: View {
     @State private var selectedTab = 0
+    @State private var showCart = false
     @EnvironmentObject var cartVM: CartViewModel
+    
+    var shouldShowCart: Bool {
+        showCart && (selectedTab == 0 || selectedTab == 1)
+    }
 
     var body: some View {
         
-        ZStack(alignment: .bottom) {
-            
             NavigationStack{
                 
                 TabView(selection: $selectedTab){
@@ -32,14 +35,21 @@ struct MainTabView: View {
                         }
                         .tag(1)
                     
-                    Text("Wallet")
+                    WalletView()
+                        .tabItem {
+                            Image(systemName: "creditcard.fill")
+                            Text("Wallet")
+                        }
+                        .tag(2)
+                    
+                    Text("Account")
                         .tabItem{
-                            Image(systemName: "person")
+                            Image(systemName: "person.fill")
                             Text("Account")
                         }
                         .tag(3)
                     
-                    Text("Cart")
+                    CartView(selectedTab: $selectedTab)
                         .tabItem{
                             Image(systemName: "cart")
                             Text("Cart")
@@ -49,14 +59,24 @@ struct MainTabView: View {
                 .accentColor(.green)
                 
             }
-            if cartVM.totalItems > 0 {
-                   BottomCartView()
-                       .padding(.horizontal, 16)
-                       .padding(.bottom, 70)
-                       .transition(.move(edge: .bottom))
+          
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                BottomCartView(selectedTab: $selectedTab)
+                    .padding(.horizontal, 16)
+                    .offset(y: shouldShowCart ? -60 : 120)
+                    .opacity(shouldShowCart ? 1 : 0)
+//                    .animation(.easeInOut(duration: 0.25), value: shouldShowCart)
             }
-        }
-        .animation(.easeInOut, value: cartVM.totalItems)
+        
+            .onAppear {
+                showCart = cartVM.totalItems > 0
+            }
+        
+            .onChange(of: cartVM.totalItems) { _, newValue in
+                withAnimation(.easeInOut(duration: 0.35)) {
+                    showCart = newValue > 0
+                }
+            }
     }
 }
 

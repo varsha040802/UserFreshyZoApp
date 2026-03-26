@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HeaderView: View {
+struct WalletHeaderView: View {
     var body: some View {
         Text("My Wallet")
                .font(.title2.bold())
@@ -16,5 +16,5 @@ struct HeaderView: View {
 }
 
 #Preview {
-    HeaderView()
+    WalletHeaderView()
 }

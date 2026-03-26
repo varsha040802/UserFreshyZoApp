@@ -9,7 +9,7 @@ import SwiftUI
 struct BottomCartView: View {
 
     @EnvironmentObject var cartVM: CartViewModel
-    @Binding var selectedTab: Int   // ✅ ADD THIS
+    @Binding var selectedTab: Int
 
     var body: some View {
         HStack {
@@ -19,7 +19,7 @@ struct BottomCartView: View {
                     .font(.caption)
                     .foregroundColor(.white)
 
-                Text("₹\(cartVM.totalPrice)")
+                Text("₹\(formatPrice(cartVM.totalPrice))")
                     .font(.headline)
                     .foregroundColor(.white)
             }
@@ -27,7 +27,7 @@ struct BottomCartView: View {
             Spacer()
 
             Button {
-                selectedTab = 4   // ✅ SWITCH TO CART TAB
+                selectedTab = 4   
             } label: {
                 HStack {
                     Text("View Cart")
@@ -47,4 +47,8 @@ struct BottomCartView: View {
                 .shadow(radius: 6)
         )
     }
+}
+
+func formatPrice(_ value: Double) -> String {
+    return String(format: "%.2f", value)
 }

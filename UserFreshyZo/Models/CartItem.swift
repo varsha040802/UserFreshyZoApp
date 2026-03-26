@@ -7,9 +7,12 @@
 
 import Foundation
 
-struct CartItem: Identifiable, Codable {
+struct CartItem: Codable, Identifiable {
     let id: String
     var quantity: Int
     let name: String
-    let price: Int
+    let price: Double
+    let mrp: Double
+    let image: String
+    let variant: String?
 }
